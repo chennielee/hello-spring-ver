@@ -1,9 +1,10 @@
 package hello2.hello2spring.repository;
 
 import hello2.hello2spring.domain.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
-
+@Repository
 public class MemoryMemberRepository implements  MemberRepository{
 
     private static Map<Long, Member> store = new HashMap<>(); // 회원정보를 private 으로 저장해놓기
