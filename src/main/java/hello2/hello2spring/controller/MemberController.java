@@ -4,8 +4,11 @@ import hello2.hello2spring.domain.Member;
 import hello2.hello2spring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller //컨트롤러 annotation 이 있을 경우 해당 객체를 생성해서 스프링에서 관리를 한다.=> 스프링 컨테이너에서 스프링 빈이 관리된다. 라고 표현함
 public class MemberController {
@@ -28,6 +31,13 @@ public class MemberController {
 
         memberService.join(member); // join 메서드 : 회원가입 정보 넘기기
         return "redirect:/"; // 회원가입 후에는 홈 화면으로 다시 돌려놓기
+    }
+
+    @GetMapping(value = "/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members", members);
+        return "members/memberList";
     }
 
 }
